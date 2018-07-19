@@ -1,0 +1,7 @@
+{% if cat_list.count > 0 %}
+    {% for i in cat_list %}
+            <li class="list-group-item"><a class="text-info" href="{% url 'category' i.url %}">{{ i.name }}</a></li>
+        {% endfor %}
+{% else %}
+    <h4 class="text-danger">nothing matches</h4>
+{% endif %}

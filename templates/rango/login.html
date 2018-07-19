@@ -1,0 +1,24 @@
+{% extends 'rango/rangoFrame.html' %}
+
+{% if not user.is_authenticated %}
+    {% block content %}
+
+    <h1 class="card-title font-weight-bold modal-header">Rango Login</h1>
+
+    <form id="rango_login" method="post" action="{% url 'login' %}">
+
+    {% csrf_token  %}
+    {% if error %}
+        <script>
+            document.write('<div class="alert alert-danger" role="alert">{{ error }}</div>');
+        </script>
+    {% endif %}
+    <input class="form-control-sm" type="text" name="username" placeholder="Username" required><br><br>
+    <input class="form-control-sm" type="password" name="password" placeholder="Password" required><br><br>
+    <input class="btn btn-success" type="submit" value="submit">
+
+    </form>
+    {% endblock %}
+{% else %}
+    {{ pass }}
+{% endif %}

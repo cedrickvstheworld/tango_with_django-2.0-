@@ -1,0 +1,62 @@
+{% extends 'rango/rangoFrame.html' %}
+
+{% block content %}
+{% if category %}
+
+<div class="row">
+
+    <div class="col-sm-6">
+
+        <h1 class="card-title">{{ category_name }}</h1>
+        <input id="cat-id" type="hidden" value="{{ category.id }}">
+        <input id="cat-name" type="hidden" value="{{ category_name_url }}">
+
+            <form id="like">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+                    <button type="submit" id="likes" class="btn btn-primary">
+                    <i class="fa fa-thumbs-up"></i></button>
+
+             {% endif %}
+
+                      <b id="like_count" class="text-success">likes: {{ category.likes }}</b>
+            </form>
+
+    </div>
+
+    <div class="col-sm-6 text-right">
+        {% csrf_token %}
+        <input type="text" id="search" class="input-group-sm rounded" name="search" placeholder="Search">
+        <i class="fa fa-search">
+         </i>
+        <br><br>
+    </div>
+</div>
+
+    {% if filtered_page %}
+
+        <ul>
+            {% for i in filtered_page %}
+                <li><h5 class="text-info"><a href="{{ i.url }}">{{ i.title }}</a></h5></li>
+            {% endfor %}
+        </ul>
+    {% elif error %}
+        <h4 class="text-danger">{{ error }}</h4>
+    {% else %}
+        {% if pages %}
+            <ul  id="pagesx">
+            {% for i in pages %}
+                <li><h5 class="text-info"><a href="{% url 'track_url' %}?page_id={{ i.id }}">{{ i.title }}</a>&nbsp;
+                    <span>(views: {{ i.views }})</span></h5></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <h5>there is no current pages</h5>
+        {% endif %}
+    {% endif %}
+    <a class="btn btn-success" href="{% url 'add_pages' category_name_url %}">Add a New Page</a>
+{% else %}
+    <h5>this category doesn't exists</h5>
+{% endif %}
+
+{% endblock %}

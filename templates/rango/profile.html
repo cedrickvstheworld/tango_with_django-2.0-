@@ -1,0 +1,30 @@
+{% extends 'rango/rangoFrame.html' %}
+
+{% block content %}
+    <h3 class="card-title font-weight-bold modal-header text-capitalize">{{ user.username }}</h3>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            {% if user_profile %}
+            <img class="profile_img img-fluid rounded" src="/media/{{ user_profile.picture }}">
+            {% endif %}
+        </div>
+
+        <div class="col-sm-8">
+
+            {% if user.email %}
+            <h5 class="text-black"><i class="fa fa-envelope"></i>&nbsp;{{ user.email }}</h5>
+            {% endif %}
+
+            {% if user_profile.website %}
+            <a class="text-black text-success" href="{{ user_profile.website }}">
+                <i class="fa fa-globe"></i>&nbsp{{ user_profile.website }}</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

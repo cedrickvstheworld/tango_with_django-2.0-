@@ -1,0 +1,8 @@
+{% if pages.count > 0 %}
+    {% for i in pages %}
+        <li><h5 class="text-info"><a href="{% url 'track_url' %}?page_id={{ i.id }}">{{ i.title }}</a>&nbsp;
+                    <span>(views: {{ i.views }})</span></h5></li>
+    {% endfor %}
+{% else %}
+    <h4 class="text-danger">nothing matches</h4>
+{% endif %}

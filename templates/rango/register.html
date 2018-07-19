@@ -1,0 +1,23 @@
+{% extends 'rango/rangoFrame.html' %}
+
+{% block content %}
+<h1>Rango Registration</h1>
+{% if registered %}
+    <h3>Thank you for you registration</h3>
+{% else %}
+    <h5 class="text-info">Sign up Here</h5>
+    <form class="form-group" id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+        {% for field in user_form %}
+            {{ field.errors }}
+            {{ field }}<br><br>
+        {% endfor %}
+        {% for field in profile_form %}
+            {{ field.errors }}
+            <h5 class="form-label-group">{{ field.help_text }}</h5>
+            {{ field }}<br><br>
+        {% endfor %}
+    <input class="btn btn-success" type="submit" name="submit" value="Register">
+    </form>
+{% endif %}
+{% endblock %}

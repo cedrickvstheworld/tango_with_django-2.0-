@@ -1,0 +1,37 @@
+{% extends 'rango/rangoFrame.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1 class="text-capitalize">Rango says hello {{ user.username }}</h1>
+{% else %}
+<h1 class="card-title font-weight-bold modal-header">Rango Says Hello World</h1>
+{% endif %}
+    <div class="row">
+    <div class="col-sm-4">
+    {% if categories %}
+        <h4 class="text-black">Top 5 Categories</h4>
+        <ul>
+        {% for i in categories%}
+            <li><h5 class="text-info"><a href="category/{{ i.url }}">{{ i.name }}</a></h5></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <h5>There is no current categories</h5>
+    {% endif %}
+    </div>
+    <div class="col-sm-8">
+    {% if pages %}
+        <h4 class="text-black">Top 5 Pages</h4>
+        <ul>
+        {% for i in pages %}
+            <li><h5 class="text-info"><a href="{{ i.url }}">{{ i.title }}</a>
+                <span class="text-muted"> - {{ i.views }} view(s)</span></h5></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <h5>there are no current pages</h5>
+    {% endif %}
+    </div>
+    </div>
+    <a  class="btn btn-success" href="{% url 'add_category' %}">Add a New Category</a>
+{% endblock %}

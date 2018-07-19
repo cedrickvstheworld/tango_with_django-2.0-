@@ -1,0 +1,11 @@
+
+    {% if cat_list%}
+
+        {% for i in cat_list %}
+            <li class="list-group-item"><a class="text-info" href="{% url 'category' i.url %}">{{ i.name }}</a></li>
+        {% endfor %}
+
+    {% else %}
+        <li>no existing categories</li>
+    {% endif %}
+

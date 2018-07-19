@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rango</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/bootstrap-4.1.1/dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'frame.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Font-Awesome-fa-4/css/font-awesome.min.css' %}">
+</head>
+<body>
+<nav class="navbar fixed-top bg-dark navbar-expand-sm">
+
+        <h4 class="navbar-brand text-white-50"><i class="fa fa-stack-overflow"></i>&nbsp;Rango</h4>
+        <a class="text-info mr-auto" href="{% url 'index' %}">
+            <h5><i class="fa fa-home"></i>&nbsp;Home</h5></a>
+
+
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="text-success">...</span>
+        </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="navbar-nav ml-auto">
+        {% if user.is_authenticated == False %}
+            <a class="nav-item btn btn-link text-info text-right" href="{% url 'register' %}">
+                <i class="fa fa-plus"></i>&nbsp;register here</a>
+            <a class="nav-item btn btn-link text-info text-right" href="{% url 'login' %}">
+                <i class="fa fa-sign-in"></i>&nbsp;login</a>
+            {% else %}
+            <a class="nav-item btn btn-link text-info text-right" href="{% url 'profile' %}">
+                <i class="fa fa-user"></i>&nbsp;profile</a>
+            <a  class="nav-item btn btn-link text-info text-right" href="{% url 'logout' %}">
+                <i class="fa fa-sign-out"></i>&nbsp;logout</a>
+        {% endif %}
+    </div>
+    </div>
+
+</nav>
+<div class="row container-fluid">
+
+<div class="col-sm-3">
+
+    <br><br><br>
+    <div class="text-center">
+        <br>
+        {% csrf_token %}
+
+        <input class="input-sm rounded" type="text" name="searchcategory" id="searchcategory" placeholder="Search">
+        <i class="fa fa-search">
+         </i>
+        <br><br>
+
+    </div>
+    <ul id="catresult">
+            {% include 'rango/category_lists.html' %}
+    </ul>
+
+</div>
+
+    <div class="col-sm-9">
+        <br><br><br>
+        <div class="card bg-light">
+            <div class="card-body">
+                {% block content %}
+                {% endblock %}
+                <br>
+            </div>
+        </div>
+        <br><br>
+    </div>
+
+</div>
+
+<footer class="bg-light container-fluid fixed-bottom">
+    <div class="text-left">
+    <h6 class="text-info">copyrights reservered {% now 'Y' %}</h6>
+    </div>
+</footer>
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/frame.js' %}"></script>
+<script src="{% static 'bootstrap-4.1.1/dist/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
