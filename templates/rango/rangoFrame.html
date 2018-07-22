@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rango</title>
     {% load staticfiles %}
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <link rel="stylesheet" type="text/css" href="{% static '/bootstrap-4.1.1/dist/css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'frame.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'Font-Awesome-fa-4/css/font-awesome.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'rango/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'rango/bootstrap-4.1.1/dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'rango/frame.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'rango/Font-Awesome-fa-4/css/font-awesome.min.css' %}">
 </head>
 <body>
 <nav class="navbar fixed-top bg-dark navbar-expand-sm">
@@ -50,9 +50,7 @@
         <br>
         {% csrf_token %}
 
-        <input class="input-sm rounded" type="text" name="searchcategory" id="searchcategory" placeholder="Search">
-        <i class="fa fa-search">
-         </i>
+        <input class="input-sm rounded embed-responsive" type="text" name="searchcategory" id="searchcategory" placeholder="Search">
         <br><br>
 
     </div>
@@ -81,8 +79,8 @@
     <h6 class="text-info">copyrights reservered {% now 'Y' %}</h6>
     </div>
 </footer>
-<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'js/frame.js' %}"></script>
-<script src="{% static 'bootstrap-4.1.1/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'rango/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'rango/js/frame.js' %}"></script>
+<script src="{% static 'rango/bootstrap-4.1.1/dist/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

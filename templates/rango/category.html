@@ -11,24 +11,32 @@
         <input id="cat-id" type="hidden" value="{{ category.id }}">
         <input id="cat-name" type="hidden" value="{{ category_name_url }}">
 
-            <form id="like">
+
+            <div id="fuckinglike">
             {% csrf_token %}
             {% if user.is_authenticated %}
+                {% if not liked.liked %}
+                    <form id="like" style="display: inline">
                     <button type="submit" id="likes" class="btn btn-primary">
                     <i class="fa fa-thumbs-up"></i></button>
-
-             {% endif %}
+                    </form>
+                {% else %}
+                    <form id="unlike" style="display: inline">
+                    <button type="submit" id="unlikes" class="btn btn-primary">
+                    <i class="fa fa-thumbs-down"></i></button>
+                    </form>
+                {% endif %}
+            {% endif %}
 
                       <b id="like_count" class="text-success">likes: {{ category.likes }}</b>
-            </form>
+            </div>
+
 
     </div>
 
     <div class="col-sm-6 text-right">
         {% csrf_token %}
-        <input type="text" id="search" class="input-group-sm rounded" name="search" placeholder="Search">
-        <i class="fa fa-search">
-         </i>
+        <input type="text" id="search" class="input-group-sm rounded embed-responsive" name="search" placeholder="Search">
         <br><br>
     </div>
 </div>

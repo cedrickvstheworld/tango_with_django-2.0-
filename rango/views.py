@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from . models import Page, Category, UserProfile
+from . models import Page, Category, UserProfile, Like
 from . forms import CategoryForm, PageForm, UserForm, UserProfileForm
 
 
@@ -17,8 +17,6 @@ def decen(x):
     else:
         return x
 
-
-# add a parameter here processed by other function
 
 def category_lists():
     categories = Category.objects.order_by('-likes')
@@ -35,8 +33,23 @@ def category_like(request):
         category_id = request.POST['category_id']
 
         category = Category.objects.get(id=int(category_id))
-        category.likes += 1
-        category.save()
+
+        if request.POST['fuckingaction'] == 'likethisshit':
+            try:
+                Like.objects.get(user=request.user, category=category, liked=True)
+            except:
+                category.likes += 1
+                category.save()
+
+                Like.objects.create(
+                    liked = True,
+                    category = category,
+                    user = request.user,
+                )
+        else:
+            category.likes -= 1
+            category.save()
+            Like.objects.filter(user=request.user, category=category, liked=True).delete()
 
     return HttpResponse('')
 
@@ -106,12 +119,25 @@ def category(request, category_name_url):
     }
 
     try:
+
         category = Category.objects.get(name=category_name)
         pages = Page.objects.filter(category=category).order_by('-views')
         context_dict['category'] = category
         context_dict['pages'] = pages
+
+        liked = Like.objects.get(
+            user=request.user,
+            category=category
+        )
+
+        context_dict['liked'] = liked
+
+    except Like.DoesNotExist:
+        pass
+
     except Category.DoesNotExist:
         pass
+
 
     return render(request, 'rango/category.html', context_dict)
 

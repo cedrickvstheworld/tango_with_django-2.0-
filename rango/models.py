@@ -37,6 +37,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'categories'
 
+
 class Page(models.Model):
     category = models.ForeignKey(Category, False)
     title = models.CharField(max_length=128, unique=True)
@@ -48,3 +49,12 @@ class Page(models.Model):
 
     class Meta:
         verbose_name_plural = 'pages'
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, False)
+    category = models.ForeignKey(Category, False)
+    liked = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = 'likes'

@@ -4,15 +4,38 @@ $(document).on('submit', '#like', function (e) {
         type: 'POST',
         url: '/like/',
         data:{
-            category_id:$('#cat-id').val(),
+            fuckingaction: 'likethisshit',
+            category_id: $('#cat-id').val(),
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
         },
-        success:function () {
-            $('#like_count').load(' #like_count');
+        success: function () {
+            $('#fuckinglike').load(' #fuckinglike')
         }
 
         });
+
 });
+
+
+$(document).on('submit', '#unlike', function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '/like/',
+        data:{
+            fuckingaction: 'unlikethisshit',
+            category_id: $('#cat-id').val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function () {
+            $('#fuckinglike').load(' #fuckinglike')
+        }
+
+        });
+
+});
+
+
 
 
 $(function () {
