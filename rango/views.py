@@ -124,13 +124,14 @@ def category(request, category_name_url):
         pages = Page.objects.filter(category=category).order_by('-views')
         context_dict['category'] = category
         context_dict['pages'] = pages
+        
+        if request.user.is_authenticated:
+            liked = Like.objects.get(
+                user=request.user,
+                category=category
+            )
 
-        liked = Like.objects.get(
-            user=request.user,
-            category=category
-        )
-
-        context_dict['liked'] = liked
+            context_dict['liked'] = liked
 
     except Like.DoesNotExist:
         pass
